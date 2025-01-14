@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.12rem 1.75rem 1.12rem 5.5rem;
+  background-color: #020203;
+  gap: clamp(1.75rem, 1.75rem + 1.75vw, 9.31rem);
+
+  .logo {
+    width: 11.12481rem;
+  }
+
+  .nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .nav-item {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.5rem;
+      color: #fff;
+
+      &:hover {
+        filter: brightness(1.2);
+        text-decoration: underline;
+      }
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
