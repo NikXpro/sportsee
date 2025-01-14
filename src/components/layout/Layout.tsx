@@ -1,4 +1,5 @@
 import { Header } from "@components/layout/Header";
+import { Sidebar } from "@components/layout/Sidebar/Sidebar";
 
 type LayoutProps = {
   pageActive: string;
@@ -9,7 +10,7 @@ export function Layout({ pageActive, children }: LayoutProps) {
   return (
     <>
       <Header pageActive={pageActive} />
-      <main>{children}</main>
+      <Sidebar>{children}</Sidebar>
     </>
   );
 }
