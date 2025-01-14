@@ -1,13 +1,16 @@
+import { Profile } from "@pages/Profile/profile";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router";
-import App from "./App.tsx";
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./index.scss";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <Routes>
+        <Route path="/" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </BrowserRouter>
   </StrictMode>
 );
