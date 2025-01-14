@@ -1,6 +1,6 @@
 import { Layout } from "@components/layout";
 
-export function profile() {
+export function Profile() {
   return (
     <>
       <Layout pageActive="profile">
