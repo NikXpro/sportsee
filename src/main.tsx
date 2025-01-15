@@ -1,4 +1,4 @@
-import { Profile } from "@pages/Profile/profile";
+import { Profile } from "@pages/Profile";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
