@@ -4,6 +4,7 @@
   align-items: center;
   padding: 3.25rem 5.62rem 5.37rem 6.69rem;
   width: 100%;
+  gap: 4.81rem;
 
   .profile-header {
     display: flex;
@@ -40,6 +41,16 @@
       gap: 1.94rem;
 
       width: 100%;
+
+      .activity-chart {
+        width: 100%;
+        height: 20rem;
+
+        border-radius: 0.3125rem;
+        background: #fbfbfb;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+        padding: 1.44rem;
+      }
     }
 
     .profile-content-right {
