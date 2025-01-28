@@ -1,0 +1,55 @@
+.average-sessions {
+  position: relative;
+  .tooltip {
+    padding: 0.0625rem 0.4375rem;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 0.6rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .recharts-text {
+    font-weight: 500;
+  }
+}
+
+.chartaverage-sessions {
+  position: relative;
+  background: #ff0000;
+  border-radius: 5px;
+  width: 258px;
+  height: 263px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+
+  &.active {
+    background: linear-gradient(90deg, #ff0000 0%, #e60000 100%);
+  }
+
+  &-title {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 1;
+  }
+
+  .center {
+    margin: auto;
+  }
+
+  .recharts-tooltip-wrapper {
+    .recharts-tooltip-item {
+      color: black;
+      background: white;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+}
