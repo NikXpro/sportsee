@@ -83,6 +83,7 @@ export function ChartActivity() {
             tickLine={false}
             axisLine={false}
             tick={{ fill: "#9B9EAC" }}
+            tickCount={3}
             domain={["dataMin - 1", "dataMax + 1"]}
           />
           <YAxis
