@@ -23,10 +23,10 @@ const data = [
   { name: "10", kilogram: 69.7, calories: 270 },
 ];
 
-interface CustomTooltipProps extends TooltipProps<number, string> {
+interface CustomTooltipProps extends TooltipProps<string, string> {
   active?: boolean;
   payload?: Array<{
-    value: number;
+    value: string;
     dataKey: string;
   }>;
 }
