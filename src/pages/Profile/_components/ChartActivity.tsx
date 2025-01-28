@@ -21,6 +21,7 @@ const data = [
   { name: "8", kilogram: 70.2, calories: 280 },
   { name: "9", kilogram: 69.8, calories: 260 },
   { name: "10", kilogram: 69.7, calories: 270 },
+  { name: "11", kilogram: 72.5, calories: 450 },
 ];
 
 interface CustomTooltipProps extends TooltipProps<string, string> {
@@ -59,10 +60,15 @@ export function ChartActivity() {
           </div>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={{
+            top: 35,
+            right: -20,
+            left: 5,
+            bottom: 50,
+          }}
           barGap={8}
         >
           <CartesianGrid
