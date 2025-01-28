@@ -1,16 +1,18 @@
 .chart-goal {
   background: #fbfbfb;
-  padding: 24px;
+  padding: 1.5rem 1.62rem 1.44rem 2rem;
   border-radius: 5px;
+  height: 320px;
+  min-width: 835px;
 
   .chart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 1rem;
 
     h2 {
-      font-size: 15px;
+      font-size: 1.2rem;
       font-weight: 500;
       color: #20253a;
     }
@@ -50,6 +52,8 @@
     font-size: 12px;
     border: none;
     text-align: center;
+    font-weight: 500;
+    line-height: 1.6;
 
     p {
       margin: 0;
