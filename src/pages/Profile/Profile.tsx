@@ -1,5 +1,6 @@
 import { Layout } from "@components/layout";
 import { ChartActivity } from "@pages/Profile/_components/ChartActivity";
+import { ChartSessions } from "@pages/Profile/_components/ChartSessions";
 import { InfoItem } from "@pages/Profile/_components/InfoItem";
 import "./Profile.scss";
 
@@ -19,7 +20,9 @@ export function Profile() {
               <div className="activity-chart">
                 <ChartActivity />
               </div>
-              <div className="activity-stats"></div>
+              <div className="activity-stats">
+                <ChartSessions />
+              </div>
             </div>
             <div className="profile-content-right">
               <InfoItem
