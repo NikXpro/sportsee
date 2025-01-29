@@ -22,6 +22,7 @@ export function Profile() {
               </div>
               <div className="activity-stats">
                 <ChartSessions />
+                <ChartPerformance />
               </div>
             </div>
             <div className="profile-content-right">
