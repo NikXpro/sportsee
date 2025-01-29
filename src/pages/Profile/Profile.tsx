@@ -1,6 +1,7 @@
 import { Layout } from "@components/layout";
 import { ChartActivity } from "@pages/Profile/_components/ChartActivity";
 import { ChartPerformance } from "@pages/Profile/_components/ChartPerformance";
+import { ChartScore } from "@pages/Profile/_components/ChartScore";
 import { ChartSessions } from "@pages/Profile/_components/ChartSessions";
 import { InfoItem } from "@pages/Profile/_components/InfoItem";
 import "./Profile.scss";
@@ -24,6 +25,7 @@ export function Profile() {
               <div className="activity-stats">
                 <ChartSessions />
                 <ChartPerformance />
+                <ChartScore score={50} />
               </div>
             </div>
             <div className="profile-content-right">
