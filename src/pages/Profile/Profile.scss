@@ -2,9 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3.25rem 5.62rem 5.37rem 6.69rem;
+  max-width: 70.375rem;
+  justify-content: space-between;
+
+  max-height: 48.6875rem;
   width: 100%;
-  gap: 4.81rem;
+  height: 100%;
 
   .profile-header {
     display: flex;
