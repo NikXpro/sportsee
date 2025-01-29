@@ -16,7 +16,7 @@ export function Sidebar({ children }: SidebarProps) {
         </div>
         <small className="copyright">Copght, SportSee 2020</small>
       </aside>
-      {children}
+      <div className="children">{children}</div>
     </main>
   );
 }
