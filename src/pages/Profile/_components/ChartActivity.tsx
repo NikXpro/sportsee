@@ -10,20 +10,6 @@ import {
 } from "recharts";
 import "./ChartActivity.scss";
 
-const data = [
-  { name: "1", kilogram: 69.5, calories: 240 },
-  { name: "2", kilogram: 70, calories: 280 },
-  { name: "3", kilogram: 70, calories: 356 },
-  { name: "4", kilogram: 69.8, calories: 250 },
-  { name: "5", kilogram: 69.9, calories: 245 },
-  { name: "6", kilogram: 69.9, calories: 235 },
-  { name: "7", kilogram: 69.7, calories: 245 },
-  { name: "8", kilogram: 70.2, calories: 280 },
-  { name: "9", kilogram: 69.8, calories: 260 },
-  { name: "10", kilogram: 69.7, calories: 270 },
-  { name: "11", kilogram: 72.5, calories: 450 },
-];
-
 interface CustomTooltipProps extends TooltipProps<string, string> {
   active?: boolean;
   payload?: Array<{
@@ -44,7 +30,15 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   return null;
 };
 
-export function ChartActivity() {
+interface ChartActivityProps {
+  data: {
+    name: string;
+    kilogram: number;
+    calories: number;
+  }[];
+}
+
+export function ChartActivity({ data }: ChartActivityProps) {
   return (
     <div className="chart-goal">
       <div className="chart-header">

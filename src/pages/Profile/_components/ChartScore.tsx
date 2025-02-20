@@ -1,11 +1,16 @@
 import { RadialBar, RadialBarChart, ResponsiveContainer } from "recharts";
 import "./ChartScore.scss";
 
-type ChartScoreProps = {
-  score: number;
-};
+interface ChartScoreProps {
+  data: {
+    value: number;
+    fill: string;
+  }[];
+}
 
-export function ChartScore({ score }: ChartScoreProps) {
+export function ChartScore({ data }: ChartScoreProps) {
+  const score = data[1].value; // La deuxième valeur est le score réel
+
   return (
     <div className="score-chart">
       <h2 className="score-title">Score</h2>
@@ -13,10 +18,7 @@ export function ChartScore({ score }: ChartScoreProps) {
         <ResponsiveContainer width="100%" height="100%">
           <RadialBarChart
             innerRadius="80%"
-            data={[
-              { value: 100, fill: "#f0f0f0" }, // Fond gris (100%)
-              { value: score, fill: "#FF0000" }, // Valeur réelle
-            ]}
+            data={data}
             startAngle={90}
             endAngle={450}
             barSize={10}

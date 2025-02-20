@@ -7,16 +7,14 @@ import {
 } from "recharts";
 import "./ChartPerformance.scss";
 
-const data = [
-  { subject: "Intensité", value: 100 },
-  { subject: "Vitesse", value: 100 },
-  { subject: "Force", value: 100 },
-  { subject: "Endurance", value: 100 },
-  { subject: "Energie", value: 100 },
-  { subject: "Cardio", value: 100 },
-];
+interface ChartPerformanceProps {
+  data: {
+    subject: string;
+    value: number;
+  }[];
+}
 
-export function ChartPerformance() {
+export function ChartPerformance({ data }: ChartPerformanceProps) {
   return (
     <div className="performance-chart">
       <ResponsiveContainer width="100%" height="100%">

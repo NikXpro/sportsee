@@ -37,27 +37,16 @@ const CustomCursor = ({ points }: CustomCursorProps) => {
   );
 };
 
-export function ChartSessions() {
-  const realData = [
-    { day: 1, sessionLength: 30 },
-    { day: 2, sessionLength: 40 },
-    { day: 3, sessionLength: 35 },
-    { day: 4, sessionLength: 30 },
-    { day: 5, sessionLength: 45 },
-    { day: 6, sessionLength: 55 },
-    { day: 7, sessionLength: 68 },
-  ];
+interface ChartSessionsProps {
+  data: {
+    day: number;
+    sessionLength: number;
+  }[];
+}
 
-  // Ajouter des points virtuels avant et après
-  const data = [
-    { day: 0, sessionLength: realData[0].sessionLength - 5 },
-    ...realData,
-    { day: 8, sessionLength: realData[realData.length - 1].sessionLength + 10 },
-  ];
-
+export function ChartSessions({ data }: ChartSessionsProps) {
   const formatLabel = (value: number): string => {
     const days = ["L", "M", "M", "J", "V", "S", "D"];
-    // Ne montrer que les labels pour les jours réels (1-7)
     return value >= 1 && value <= 7 ? days[value - 1] : "";
   };
 
