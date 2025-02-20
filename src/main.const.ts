@@ -6,8 +6,8 @@ type NavItem = {
 };
 
 export const navList: NavItem[] = [
-  { id: "home", name: "Accueil", path: "", newTab: false },
-  { id: "profile", name: "Profil", path: "", newTab: false },
-  { id: "settings", name: "Réglages", path: "", newTab: false },
-  { id: "community", name: "Communauté", path: "", newTab: false },
+  { id: "home", name: "Accueil", path: "/", newTab: false },
+  { id: "profile", name: "Profil", path: "/profile/", newTab: false },
+  { id: "settings", name: "Réglages", path: "/settings", newTab: false },
+  { id: "community", name: "Communauté", path: "/community", newTab: false },
 ];
