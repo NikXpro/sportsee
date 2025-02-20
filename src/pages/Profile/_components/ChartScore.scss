@@ -1,5 +1,5 @@
 .score-chart {
-  width: 16.125rem;
+  width: 100%;
   height: 100%;
   background: #fbfbfb;
   border-radius: 5px;
@@ -18,6 +18,7 @@
   .score-content {
     width: 100%;
     height: 100%;
+    min-height: 200px;
     position: relative;
   }
 
