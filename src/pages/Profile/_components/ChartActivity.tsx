@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Activity chart component displaying daily weight and calories data
+ * @module ChartActivity
+ */
+
 import {
   Bar,
   BarChart,
@@ -10,6 +15,13 @@ import {
 } from "recharts";
 import "./ChartActivity.scss";
 
+/**
+ * Props for the custom tooltip component
+ * @interface CustomTooltipProps
+ * @extends {TooltipProps<string, string>}
+ * @property {boolean} [active] - Whether the tooltip is active
+ * @property {Array<{value: string, dataKey: string}>} [payload] - Data for the tooltip
+ */
 interface CustomTooltipProps extends TooltipProps<string, string> {
   active?: boolean;
   payload?: Array<{
@@ -18,6 +30,14 @@ interface CustomTooltipProps extends TooltipProps<string, string> {
   }>;
 }
 
+/**
+ * Custom tooltip component for the activity chart
+ * Displays weight and calories values
+ *
+ * @component
+ * @param {CustomTooltipProps} props - Component props
+ * @returns {JSX.Element | null} The rendered tooltip or null if inactive
+ */
 const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
@@ -30,6 +50,14 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   return null;
 };
 
+/**
+ * Props for the ChartActivity component
+ * @interface ChartActivityProps
+ * @property {Object[]} data - Array of daily activity data
+ * @property {string} data[].name - Day identifier
+ * @property {number} data[].kilogram - Weight measurement for the day
+ * @property {number} data[].calories - Calories burned for the day
+ */
 interface ChartActivityProps {
   data: {
     name: string;
@@ -38,6 +66,25 @@ interface ChartActivityProps {
   }[];
 }
 
+/**
+ * Activity chart component that displays daily weight and calories data
+ * Uses a bar chart to show weight and calories side by side for each day
+ *
+ * @component
+ * @param {ChartActivityProps} props - Component props
+ * @param {Object[]} props.data - Array of daily activity measurements
+ * @returns {JSX.Element} The rendered activity chart
+ *
+ * @example
+ * ```tsx
+ * const data = [
+ *   { name: "1", kilogram: 80, calories: 240 },
+ *   { name: "2", kilogram: 80, calories: 220 }
+ * ];
+ *
+ * <ChartActivity data={data} />
+ * ```
+ */
 export function ChartActivity({ data }: ChartActivityProps) {
   return (
     <div className="chart-goal">

@@ -1,7 +1,24 @@
+/**
+ * @fileoverview Home page component displaying user selection interface
+ * @module Home
+ */
+
 import { Layout } from "@components/layout";
 import { useNavigate } from "react-router-dom";
 import "./Home.scss";
 
+/**
+ * Home page component that displays the welcome message and user selection buttons
+ * Allows users to navigate to specific user profiles
+ *
+ * @component
+ * @returns {JSX.Element} The rendered home page
+ *
+ * @example
+ * ```tsx
+ * <Home />
+ * ```
+ */
 export function Home() {
   const navigate = useNavigate();
 

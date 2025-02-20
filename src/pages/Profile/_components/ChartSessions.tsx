@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Average sessions chart component displaying session duration over time
+ * @module ChartSessions
+ */
+
 import {
   Line,
   LineChart,
@@ -10,6 +15,14 @@ import {
 } from "recharts";
 import "./ChartSessions.scss";
 
+/**
+ * Custom tooltip component for the sessions chart
+ * Displays session duration in minutes
+ *
+ * @component
+ * @param {TooltipProps<number, string>} props - Recharts tooltip props
+ * @returns {JSX.Element | null} The rendered tooltip or null if inactive
+ */
 const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
     return (
@@ -19,6 +32,11 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
   return null;
 };
 
+/**
+ * Props for the custom cursor component
+ * @interface CustomCursorProps
+ * @property {Array<{x: number, y: number}>} points - Cursor position points
+ */
 interface CustomCursorProps {
   points: Array<{
     x: number;
@@ -26,6 +44,14 @@ interface CustomCursorProps {
   }>;
 }
 
+/**
+ * Custom cursor component that creates a darkening effect
+ * on the chart from the cursor position to the right edge
+ *
+ * @component
+ * @param {CustomCursorProps} props - Component props
+ * @returns {JSX.Element} The rendered cursor overlay
+ */
 const CustomCursor = ({ points }: CustomCursorProps) => {
   return (
     <Rectangle
@@ -37,6 +63,13 @@ const CustomCursor = ({ points }: CustomCursorProps) => {
   );
 };
 
+/**
+ * Props for the ChartSessions component
+ * @interface ChartSessionsProps
+ * @property {Object[]} data - Array of session duration data
+ * @property {number} data[].day - Day number (1-7)
+ * @property {number} data[].sessionLength - Duration of the session in minutes
+ */
 interface ChartSessionsProps {
   data: {
     day: number;
@@ -44,7 +77,32 @@ interface ChartSessionsProps {
   }[];
 }
 
+/**
+ * Average sessions chart component that displays session durations over the week
+ * Uses a line chart with custom styling and interactions
+ *
+ * @component
+ * @param {ChartSessionsProps} props - Component props
+ * @param {Object[]} props.data - Array of session measurements
+ * @returns {JSX.Element} The rendered sessions chart
+ *
+ * @example
+ * ```tsx
+ * const data = [
+ *   { day: 1, sessionLength: 30 }, // Monday
+ *   { day: 2, sessionLength: 45 }, // Tuesday
+ *   // ... rest of the week
+ * ];
+ *
+ * <ChartSessions data={data} />
+ * ```
+ */
 export function ChartSessions({ data }: ChartSessionsProps) {
+  /**
+   * Formats the day number into a single letter representation
+   * @param {number} value - Day number (1-7)
+   * @returns {string} Single letter representation of the day
+   */
   const formatLabel = (value: number): string => {
     const days = ["L", "M", "M", "J", "V", "S", "D"];
     return value >= 1 && value <= 7 ? days[value - 1] : "";

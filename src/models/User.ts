@@ -5,6 +5,7 @@ import UserScore from "./UserScore";
 
 /**
  * Represents user's personal information
+ * @interface UserInfos
  */
 interface UserInfos {
   firstName: string;
@@ -14,6 +15,7 @@ interface UserInfos {
 
 /**
  * Represents user's key nutritional data
+ * @interface KeyData
  */
 interface KeyData {
   calorieCount: number;
@@ -24,6 +26,7 @@ interface KeyData {
 
 /**
  * Represents the complete user data structure received from the API
+ * @interface UserData
  */
 interface UserData {
   id: number;
@@ -55,21 +58,41 @@ interface UserData {
 
 /**
  * Class representing a user with their associated fitness and nutritional data
+ * Manages all user-related data including personal information, activity tracking,
+ * performance metrics, and nutritional information
  */
 export default class User {
+  /** Unique identifier for the user */
   id: number;
+
+  /** User's first name */
   firstName: string;
+
+  /** User's last name */
   lastName: string;
+
+  /** User's age */
   age: number;
+
+  /** User's nutritional information including calories, proteins, carbs, and lipids */
   keyData: KeyData;
+
+  /** User's daily activity tracking data */
   activity: UserActivity;
+
+  /** User's average session duration data */
   averageSessions: UserAverageSessions;
+
+  /** User's performance data across different categories */
   performance: UserPerformance;
+
+  /** User's overall score/completion data */
   score: UserScore;
 
   /**
    * Creates a new User instance
-   * @param data - The user data received from the API
+   * @param {UserData} data - The complete user data received from the API
+   * @throws {Error} Will throw an error if required data is missing or invalid
    */
   constructor(data: UserData) {
     this.id = data.id;
@@ -87,7 +110,7 @@ export default class User {
 
   /**
    * Returns the user's full name
-   * @returns A string containing the user's first and last name
+   * @returns {string} A string containing the user's first and last name concatenated
    */
   getFullName(): string {
     return `${this.firstName} ${this.lastName}`;
@@ -95,7 +118,11 @@ export default class User {
 
   /**
    * Returns the user's key nutritional data
-   * @returns An object containing calories, proteins, carbohydrates, and lipids counts
+   * @returns {KeyData} An object containing detailed nutritional information:
+   * - calorieCount: Daily calorie intake
+   * - proteinCount: Daily protein intake in grams
+   * - carbohydrateCount: Daily carbohydrate intake in grams
+   * - lipidCount: Daily lipid intake in grams
    */
   getNutritionalData(): KeyData {
     return this.keyData;
@@ -103,7 +130,10 @@ export default class User {
 
   /**
    * Returns formatted data for the activity chart
-   * @returns Formatted data for displaying the daily activity chart
+   * @returns {Object[]} Array of daily activity records containing:
+   * - day: The date of the activity
+   * - kilogram: Weight measurement
+   * - calories: Calories burned
    */
   getActivityChartData() {
     return this.activity.getChartData();
@@ -111,7 +141,9 @@ export default class User {
 
   /**
    * Returns formatted data for the average sessions chart
-   * @returns Formatted data for displaying the average sessions duration chart
+   * @returns {Object[]} Array of session records containing:
+   * - day: Day of the week (1-7)
+   * - sessionLength: Duration of the session in minutes
    */
   getAverageSessionsChartData() {
     return this.averageSessions.getChartData();
@@ -119,7 +151,8 @@ export default class User {
 
   /**
    * Returns formatted data for the performance chart
-   * @returns Formatted data for displaying the performance radar chart
+   * @returns {Object[]} Array of performance metrics for different categories
+   * with values normalized for radar chart display
    */
   getPerformanceChartData() {
     return this.performance.getChartData();
@@ -127,7 +160,7 @@ export default class User {
 
   /**
    * Returns formatted data for the score chart
-   * @returns Formatted data for displaying the score chart
+   * @returns {Object[]} Formatted score data for circular progress chart display
    */
   getScoreChartData() {
     return this.score.getChartData();

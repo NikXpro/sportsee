@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Profile page component displaying user statistics and charts
+ * @module Profile
+ */
+
 import { Layout } from "@components/layout";
 import { ChartActivity } from "@pages/Profile/_components/ChartActivity";
 import { ChartPerformance } from "@pages/Profile/_components/ChartPerformance";
@@ -8,6 +13,11 @@ import { Navigate, useParams } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import "./Profile.scss";
 
+/**
+ * Mapping of nutritional data keys to their display titles
+ * @constant
+ * @type {Object.<string, string>}
+ */
 const nutritionalTitles: { [key: string]: string } = {
   calorieCount: "Calories",
   proteinCount: "Protéines",
@@ -15,6 +25,20 @@ const nutritionalTitles: { [key: string]: string } = {
   lipidCount: "Lipides",
 };
 
+/**
+ * Profile page component that displays detailed user statistics and performance data
+ * Shows various charts and nutritional information for the specified user
+ * Handles loading states, errors, and invalid user scenarios
+ *
+ * @component
+ * @returns {JSX.Element} The rendered profile page with user statistics
+ *
+ * @example
+ * ```tsx
+ * // URL: /profile/12
+ * <Profile />
+ * ```
+ */
 export function Profile() {
   const { id } = useParams<{ id: string }>();
   const userId = id ? Number(id) : 0;
