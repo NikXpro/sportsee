@@ -1,9 +1,10 @@
 .performance-chart {
-  width: 16.125rem;
+  width: 100%;
   height: 100%;
   background: #282d30;
   border-radius: 5px;
   padding: 20px;
+  position: relative;
 
   .recharts-surface {
     overflow: visible;
