@@ -17,9 +17,8 @@
   position: relative;
   background: #ff0000;
   border-radius: 5px;
-  width: 16.125rem;
-  height: 263px;
-  //min-width: 258px;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -64,5 +63,10 @@
       padding: 0.5rem;
       font-size: 0.8rem;
     }
+  }
+
+  .recharts-wrapper {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
