@@ -6,6 +6,18 @@
   padding: 1.12rem 5.5rem 1.12rem 1.75rem;
   background-color: #020203;
   gap: 9.31rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5.04838rem;
+  overflow: hidden;
+  pointer-events: none;
+
+  .logo,
+  .nav {
+    pointer-events: auto;
+  }
 
   .logo {
     width: 11.12481rem;
@@ -37,6 +49,20 @@
         &:hover {
           filter: brightness(0.75);
         }
+      }
+    }
+  }
+}
+
+/* Media query pour les écrans proches de la largeur minimale */
+@media screen and (max-width: 1200px) {
+  .header {
+    gap: 2rem;
+    padding: 1.12rem 2rem 1.12rem 1.75rem;
+
+    .nav {
+      .nav-item {
+        font-size: 1.2rem;
       }
     }
   }

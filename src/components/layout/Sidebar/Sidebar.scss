@@ -3,14 +3,18 @@
   flex-direction: row;
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 
   .children {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+    justify-content: flex-start;
+    width: calc(100% - 7.3125rem);
+    overflow: hidden;
+    margin-left: 7.3125rem;
+    margin-top: 5.04838rem;
   }
 
   .sidebar {
@@ -18,12 +22,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 7.3125rem;
     min-width: 7.3125rem;
     height: 100%;
     background-color: #000;
-    z-index: -1;
+    z-index: 10;
+    overflow: hidden;
 
     .icons {
       display: flex;
@@ -46,12 +53,33 @@
     }
 
     .copyright {
-      transform: rotate(270deg);
+      position: absolute;
+      bottom: 3.5rem;
+      left: 0;
+      transform: rotate(270deg) translateX(50%);
 
       color: #fff;
       font-size: 0.75rem;
       font-weight: 500;
-      line-height: 1.5rem;
+      text-align: center;
+      line-height: 1.2rem;
+      width: max-content;
+    }
+  }
+}
+
+/* Media query pour les écrans proches de la hauteur minimale */
+@media screen and (max-height: 820px) {
+  .sidebar-container {
+    .sidebar {
+      .icons {
+        gap: 1rem;
+
+        img {
+          width: 3.5rem;
+          height: 3.5rem;
+        }
+      }
     }
   }
 }
