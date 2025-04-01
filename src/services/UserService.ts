@@ -4,7 +4,73 @@
  */
 
 import { API_CONFIG } from "../config/api.config";
+import { MOCKED_DATA } from "../data/mockData";
 import User from "../models/User";
+
+/**
+ * Type representing the endpoint names in API_CONFIG.ENDPOINTS
+ */
+type EndpointKey = keyof typeof API_CONFIG.ENDPOINTS;
+
+/**
+ * Type representing the data categories in MOCKED_DATA
+ */
+type MockedDataKey = keyof typeof MOCKED_DATA;
+
+/**
+ * Interface for user data structure from the API or mock
+ */
+interface UserApiData {
+  id: number;
+  userInfos: {
+    firstName: string;
+    lastName: string;
+    age: number;
+  };
+  score?: number;
+  todayScore?: number;
+  keyData: {
+    calorieCount: number;
+    proteinCount: number;
+    carbohydrateCount: number;
+    lipidCount: number;
+  };
+}
+
+/**
+ * Interface for activity data structure from the API or mock
+ */
+interface ActivityApiData {
+  userId: number;
+  sessions: {
+    day: string;
+    kilogram: number;
+    calories: number;
+  }[];
+}
+
+/**
+ * Interface for average sessions data structure from the API or mock
+ */
+interface AverageSessionsApiData {
+  userId: number;
+  sessions: {
+    day: number;
+    sessionLength: number;
+  }[];
+}
+
+/**
+ * Interface for performance data structure from the API or mock
+ */
+interface PerformanceApiData {
+  userId: number;
+  kind: { [key: number]: string };
+  data: {
+    value: number;
+    kind: number;
+  }[];
+}
 
 /**
  * Service class implementing the Singleton pattern for managing user data
@@ -43,11 +109,11 @@ class UserService {
   /**
    * Generic method to fetch data from the API
    * @param {string} url - The complete URL to fetch from
-   * @returns {Promise<any>} The parsed JSON response data
+   * @returns {Promise<unknown>} The parsed JSON response data
    * @throws {Error} If the network response is not ok
    * @private
    */
-  private async fetchData(url: string) {
+  private async fetchData(url: string): Promise<unknown> {
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -62,6 +128,53 @@ class UserService {
   }
 
   /**
+   * Get the mocked data for the specified endpoint and user ID
+   * @param {string} endpoint - The endpoint type (USER, USER_ACTIVITY, etc.)
+   * @param {number} userId - The user ID
+   * @returns {unknown} The mocked data for the specified endpoint and user
+   * @throws {Error} If the mocked data doesn't exist
+   * @private
+   */
+  private getMockData(endpoint: string, userId: number): unknown {
+    // Extract the endpoint name from the full path (e.g., "/user/:id" -> "USER")
+    const endpointName = Object.keys(API_CONFIG.ENDPOINTS).find(
+      (key) => API_CONFIG.ENDPOINTS[key as EndpointKey] === endpoint
+    ) as MockedDataKey | undefined;
+
+    if (!endpointName) {
+      throw new Error(`Unknown endpoint: ${endpoint}`);
+    }
+
+    const mockData =
+      MOCKED_DATA[endpointName]?.[
+        userId as keyof (typeof MOCKED_DATA)[MockedDataKey]
+      ];
+
+    if (!mockData) {
+      throw new Error(
+        `No mocked data found for user ${userId} and endpoint ${endpointName}`
+      );
+    }
+
+    return mockData;
+  }
+
+  /**
+   * Get data either from mocked data or API based on configuration
+   * @param {string} endpoint - The API endpoint
+   * @param {number} userId - The user ID
+   * @returns {Promise<unknown>} The data from either mock or API
+   * @private
+   */
+  private async getData(endpoint: string, userId: number): Promise<unknown> {
+    if (API_CONFIG.USE_MOCKED_DATA) {
+      return this.getMockData(endpoint, userId);
+    } else {
+      return this.fetchData(this.getUrl(endpoint, userId));
+    }
+  }
+
+  /**
    * Retrieves complete user data including activity, sessions, and performance
    * @param {number} userId - The ID of the user to fetch data for
    * @returns {Promise<User>} A promise that resolves to a User instance with all data
@@ -70,31 +183,42 @@ class UserService {
   public async getUserData(userId: number): Promise<User> {
     try {
       // Fetch main user data
-      const userData = await this.fetchData(
-        this.getUrl(API_CONFIG.ENDPOINTS.USER, userId)
-      );
+      const userData = (await this.getData(
+        API_CONFIG.ENDPOINTS.USER,
+        userId
+      )) as UserApiData;
 
       // Fetch activity data
-      const activityData = await this.fetchData(
-        this.getUrl(API_CONFIG.ENDPOINTS.USER_ACTIVITY, userId)
-      );
+      const activityData = (await this.getData(
+        API_CONFIG.ENDPOINTS.USER_ACTIVITY,
+        userId
+      )) as ActivityApiData;
 
       // Fetch average sessions
-      const averageSessionsData = await this.fetchData(
-        this.getUrl(API_CONFIG.ENDPOINTS.USER_AVERAGE_SESSIONS, userId)
-      );
+      const averageSessionsData = (await this.getData(
+        API_CONFIG.ENDPOINTS.USER_AVERAGE_SESSIONS,
+        userId
+      )) as AverageSessionsApiData;
 
       // Fetch performance data
-      const performanceData = await this.fetchData(
-        this.getUrl(API_CONFIG.ENDPOINTS.USER_PERFORMANCE, userId)
-      );
+      const performanceData = (await this.getData(
+        API_CONFIG.ENDPOINTS.USER_PERFORMANCE,
+        userId
+      )) as PerformanceApiData;
 
-      // Combine all data
+      // Combine all data into the format expected by the User constructor
       const completeUserData = {
         ...userData,
-        activity: activityData,
-        averageSessions: averageSessionsData,
-        performance: performanceData,
+        activity: {
+          sessions: activityData.sessions,
+        },
+        averageSessions: {
+          sessions: averageSessionsData.sessions,
+        },
+        performance: {
+          kind: performanceData.kind,
+          data: performanceData.data,
+        },
       };
 
       // Create new User instance with all data
@@ -112,8 +236,14 @@ class UserService {
    */
   public async userExists(userId: number): Promise<boolean> {
     try {
-      await this.fetchData(this.getUrl(API_CONFIG.ENDPOINTS.USER, userId));
-      return true;
+      if (API_CONFIG.USE_MOCKED_DATA) {
+        // Check if user exists in the mocked data
+        return Object.prototype.hasOwnProperty.call(MOCKED_DATA.USER, userId);
+      } else {
+        // Check if user exists in the API
+        await this.fetchData(this.getUrl(API_CONFIG.ENDPOINTS.USER, userId));
+        return true;
+      }
     } catch {
       return false;
     }
