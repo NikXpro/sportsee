@@ -1,0 +1,28 @@
+// Breakpoints
+$breakpoint-small: 1024px;
+$breakpoint-medium: 1280px;
+$breakpoint-large: 1440px;
+
+// Mixins pour la responsivité
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == small {
+    @media screen and (max-width: $breakpoint-small) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media screen and (max-width: $breakpoint-medium) {
+      @content;
+    }
+  } @else if $breakpoint == large {
+    @media screen and (max-width: $breakpoint-large) {
+      @content;
+    }
+  }
+}
+
+// Mixin pour la hauteur minimale
+@mixin min-height($height) {
+  @media screen and (max-height: $height) {
+    @content;
+  }
+}
