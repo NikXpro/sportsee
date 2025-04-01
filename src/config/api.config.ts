@@ -13,6 +13,7 @@
  * @property {string} ENDPOINTS.USER_ACTIVITY - Endpoint for user activity data (/user/:id/activity)
  * @property {string} ENDPOINTS.USER_AVERAGE_SESSIONS - Endpoint for user average sessions (/user/:id/average-sessions)
  * @property {string} ENDPOINTS.USER_PERFORMANCE - Endpoint for user performance data (/user/:id/performance)
+ * @property {boolean} USE_MOCKED_DATA - Flag to enable/disable mocked data
  *
  * @example
  * ```ts
@@ -30,4 +31,14 @@ export const API_CONFIG = {
     USER_AVERAGE_SESSIONS: "/user/:id/average-sessions",
     USER_PERFORMANCE: "/user/:id/performance",
   },
+  USE_MOCKED_DATA: true,
 };
+
+/**
+ * Set the data source to either use API or mock data
+ * @param {boolean} useMock - Whether to use mocked data (true) or API data (false)
+ */
+export function setDataSource(useMock: boolean): void {
+  API_CONFIG.USE_MOCKED_DATA = useMock;
+  console.log(`Data source set to: ${useMock ? "MOCK" : "API"}`);
+}
