@@ -1,13 +1,16 @@
+@use "../../responsive.scss" as *;
+
 .profile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 70.375rem;
-  justify-content: space-between;
-
-  max-height: 48.6875rem;
+  justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+  gap: 2rem;
 
   .profile-header {
     display: flex;
@@ -96,5 +99,68 @@
   .loading-message {
     color: #666;
     background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Styles responsives pour les écrans de taille moyenne */
+@include respond-to(medium) {
+  .profile-container {
+    padding: 0.75rem;
+
+    .profile-header {
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .profile-content {
+      flex-direction: column-reverse;
+      gap: 1.5rem;
+
+      .profile-content-left {
+        gap: 1.5rem;
+
+        .activity-stats {
+          gap: 1.25rem;
+        }
+      }
+
+      .profile-content-right {
+        flex-direction: row;
+
+        width: 100%;
+        gap: 1.75rem;
+      }
+    }
+  }
+}
+
+/* Styles responsives pour les petits écrans (près de 1024px) */
+@include respond-to(small) {
+  .profile-container {
+    padding: 0.5rem;
+
+    .profile-header {
+      gap: 1rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .profile-content {
+      flex-direction: column-reverse;
+      gap: 1.25rem;
+
+      .profile-content-right {
+        flex-direction: row;
+        width: 100%;
+        gap: 1.25rem;
+      }
+    }
   }
 }

@@ -1,3 +1,5 @@
+@use "../../../responsive.scss" as *;
+
 .info-item {
   display: flex;
   flex-direction: row;
@@ -40,5 +42,12 @@
 
       color: #74798c;
     }
+  }
+}
+
+/* Styles responsives pour les écrans de taille moyenne */
+@include respond-to(medium) {
+  .info-item {
+    width: 100%;
   }
 }
